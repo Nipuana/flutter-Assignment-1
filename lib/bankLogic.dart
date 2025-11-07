@@ -112,3 +112,32 @@ final double _overdraftFee = 35.0;
     print('Deposited \\$amount. New balance: \\$_balance');
   }
 }
+
+class PremiumAccount extends BankAccount {
+  final double _minimumBalance = 10000.0;
+  final double _interestRate = 0.05;
+
+  PremiumAccount(super._accountNumber, super._accountHolderName, super._balance);
+
+  @override
+  void withdraw(double amount) {
+    if (_balance - amount < _minimumBalance) {
+      print('Cannot withdraw. Minimum balance requirement of \\ $_minimumBalance not met.');
+      return;
+    }
+    _balance -= amount;
+    print('Withdrew \\$amount. New balance: \\$_balance');
+  }
+
+  @override
+  void deposit(double amount) {
+    _balance += amount;
+    print('Deposited \\$amount. New balance: \\$_balance');
+  }
+
+  void calculateInterest() {
+    double interest = _balance * _interestRate;
+    _balance += interest;
+    print('Interest of \\$interest added. New balance: \\$_balance');
+  }
+}
