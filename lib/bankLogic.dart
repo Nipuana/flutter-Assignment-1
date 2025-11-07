@@ -90,3 +90,25 @@ class SavingsAccount extends BankAccount {
     print('Interest of \\$interest added. New balance: \\$_balance');
   }
 } 
+
+class CheckingAccount extends BankAccount {
+final double _overdraftFee = 35.0;
+
+  CheckingAccount(super._accountNumber, super._accountHolderName, super._balance);
+
+  @override
+  void withdraw(double amount) {
+    _balance -= amount;
+    if (_balance < 0) {
+      _balance -= _overdraftFee;
+      print('Overdraft! An overdraft fee of \$$_overdraftFee has been applied.');
+    }
+    print('Withdrew \\$amount. New balance: \\$_balance');
+  }
+
+  @override
+  void deposit(double amount) {
+    _balance += amount;
+    print('Deposited \\$amount. New balance: \\$_balance');
+  }
+}
