@@ -72,6 +72,44 @@ class SavingsAccount extends BankAccount implements InterestBearing {
   }
 }
 
+class StudentAccount extends BankAccount {
+  final double _maxBalance = 5000.0;
+
+  StudentAccount(super._accountNumber, super._accountHolderName, super._balance) {
+    if (_balance > _maxBalance) {
+      _balance = _maxBalance;
+      print('Initial balance capped at \$$_maxBalance for Student Account.');
+    }
+  }
+
+  @override
+  void withdraw(double amount) {
+    if (amount > _balance) {
+      print('Insufficient funds. Cannot withdraw \$$amount.');
+      return;
+    }
+    _balance -= amount;
+    print('Withdrew \$$amount. New balance: \$_balance');
+  }
+
+  @override
+  void deposit(double amount) {
+    if (_balance + amount > _maxBalance) {
+      double allowedAmount = _maxBalance - _balance;
+      if (allowedAmount <= 0) {
+        print('Deposit denied. Balance already at maximum of \$$_maxBalance.');
+        return;
+      }
+      _balance += allowedAmount;
+      print('Deposit capped at \$$allowedAmount to maintain maximum balance of \$$_maxBalance.');
+    } else {
+      _balance += amount;
+      print('Deposited \$$amount. New balance: \$_balance');
+    }
+  }
+}
+
+
 class CheckingAccount extends BankAccount {
   final double _overdraftFee = 35.0;
 
