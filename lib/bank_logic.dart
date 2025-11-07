@@ -1,6 +1,6 @@
 abstract class InterestBearing {
   void calculateInterest();
-  double get interestRate; // For report display
+  double get interestRate;
 }
 
 abstract class BankAccount {
@@ -18,7 +18,7 @@ abstract class BankAccount {
     print('Account Holder Name => $_accountHolderName');
     print('Balance => $_balance');
 
-    // Show interest rate and amount if account is interest-bearing
+    // Checks if the created object is a interest bearing account
     if (this is InterestBearing) {
       final interestAccount = this as InterestBearing;
       double rate = interestAccount.interestRate;
@@ -55,20 +55,20 @@ class SavingsAccount extends BankAccount implements InterestBearing {
     }
     _balance -= amount;
     _withdrawalsThisMonth++;
-    print('Withdrew \$$amount. New balance: \$_balance');
+    print('Withdrew \$$amount. New balance: \$$_balance');
   }
 
   @override
   void deposit(double amount) {
     _balance += amount;
-    print('Deposited \$$amount. New balance: \$_balance');
+    print('Deposited \$$amount. New balance: \$$_balance');
   }
 
   @override
   void calculateInterest() {
     double interest = _balance * interestRate;
     _balance += interest;
-    print('Interest of \$$interest added. New balance: \$_balance');
+    print('Interest of \$$interest added. New balance: \$$_balance');
   }
 }
 
@@ -89,7 +89,7 @@ class StudentAccount extends BankAccount {
       return;
     }
     _balance -= amount;
-    print('Withdrew \$$amount. New balance: \$_balance');
+    print('Withdrew \$$amount. New balance: \$$_balance');
   }
 
   @override
@@ -104,7 +104,7 @@ class StudentAccount extends BankAccount {
       print('Deposit capped at \$$allowedAmount to maintain maximum balance of \$$_maxBalance.');
     } else {
       _balance += amount;
-      print('Deposited \$$amount. New balance: \$_balance');
+      print('Deposited \$$amount. New balance: \$$_balance');
     }
   }
 }
@@ -122,13 +122,13 @@ class CheckingAccount extends BankAccount {
       _balance -= _overdraftFee;
       print('Overdraft! An overdraft fee of \$$_overdraftFee has been applied.');
     }
-    print('Withdrew \$$amount. New balance: \$_balance');
+    print('Withdrew \$$amount. New balance: \$$_balance');
   }
 
   @override
   void deposit(double amount) {
     _balance += amount;
-    print('Deposited \$$amount. New balance: \$_balance');
+    print('Deposited \$$amount. New balance: \$$_balance');
   }
 }
 
@@ -146,20 +146,20 @@ class PremiumAccount extends BankAccount implements InterestBearing {
       return;
     }
     _balance -= amount;
-    print('Withdrew \$$amount. New balance: \$_balance');
+    print('Withdrew \$$amount. New balance: \$$_balance');
   }
 
   @override
   void deposit(double amount) {
     _balance += amount;
-    print('Deposited \$$amount. New balance: \$_balance');
+    print('Deposited \$$amount. New balance: \$$_balance');
   }
 
   @override
   void calculateInterest() {
     double interest = _balance * interestRate;
     _balance += interest;
-    print('Interest of \$$interest added. New balance: \$_balance');
+    print('Interest of \$$interest added. New balance: \$$_balance');
   }
 }
 
@@ -196,3 +196,5 @@ class Bank {
     print('===============================\n');
   }
 }
+
+

@@ -1,4 +1,4 @@
-import 'package:assignment_1/bankLogic.dart';
+import 'package:assignment_1/bank_logic.dart';
 
 void main() {
   final bank = Bank();
@@ -31,10 +31,11 @@ void main() {
     // Test deposit and withdrawal
   student.deposit(700);  // Will cap deposit
   student.withdraw(600);
-  student.deposit(1000); // Should print cap message again
+  student.deposit(1000); 
 
   // Transfer funds between Kanchha and Bhunte
   bank.transfer('SAA-011', 'SHA-111', 300);
+  bank.transfer('SAA-011', 'SHA-111', 100);
 
   // Generate report of all accounts
   bank.generateReport();
