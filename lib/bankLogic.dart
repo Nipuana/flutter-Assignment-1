@@ -141,3 +141,38 @@ class PremiumAccount extends BankAccount {
     print('Interest of \\$interest added. New balance: \\$_balance');
   }
 }
+
+class Bank {
+  final Map<String, BankAccount> _accounts = {};
+
+  void createAccount(BankAccount account) {
+    _accounts[account.accountNumber] = account;
+    print('Account created: ${account.accountNumber}');
+  }
+
+  BankAccount? findAccount(String accountNumber) {
+    return _accounts[accountNumber];
+  }
+
+  void transfer(String fromAccountNumber, String toAccountNumber, double amount) {
+    BankAccount? fromAccount = findAccount(fromAccountNumber);
+    BankAccount? toAccount = findAccount(toAccountNumber);
+
+    if (fromAccount == null || toAccount == null) {
+      print('One or both accounts not found.');
+      return;
+    }
+
+    fromAccount.withdraw(amount);
+    toAccount.deposit(amount);
+    print('Transferred \\$amount from $fromAccountNumber to $toAccountNumber');
+  }
+
+  void generateReport() {
+    print('Bank Accounts Report:');
+    _accounts.forEach((accountNumber, account) {
+      account.displayAccountInfo(accountNumber);
+     
+    });
+  }
+}
