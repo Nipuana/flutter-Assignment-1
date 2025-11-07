@@ -5,7 +5,7 @@ void main() {
 
   final saving = SavingsAccount('SAA-011', 'Kanchha', 1000);
   final checking = CheckingAccount('SHA-111', 'Bhunte', 100);
-  final premium = PremiumAccount('MRI-122', 'Punte', 15000);
+  final premium = PremiumAccount('MRI-122', 'Ankit', 15000);
 
   //Create accounts
   bank.createAccount(saving);
@@ -13,7 +13,7 @@ void main() {
   bank.createAccount(premium);
 
   //perform transactions on savings account
-  saving.withdraw(400); 
+  saving.withdraw(400);
   saving.withdraw(200);
   saving.calculateInterest(); 
 

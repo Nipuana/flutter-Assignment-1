@@ -25,6 +25,10 @@
 // • Transfer money between accounts
 // • Generate reports of all accounts
 
+abstract class InterestBearing {
+  void calculateInterest();
+}
+
 abstract class BankAccount {
   final String _accountNumber;
   String _accountHolderName;
@@ -41,9 +45,10 @@ abstract class BankAccount {
     print('Account Holder Name => $_accountHolderName');
     print('Balance => $_balance');
   }
+  
   String get accountNumber {
     return _accountNumber;
-  } 
+  }
  
   set accountHolderName(String name) {
     _accountHolderName = name;
@@ -52,13 +57,12 @@ abstract class BankAccount {
   set balance(double amount) {
     _balance = amount;
   }
-  
 }
 
-class SavingsAccount extends BankAccount {
-  final  double _minimumBalance = 500.0;
-  final  double _interestRate = 0.02;
-  final  int _withdrawalLimit = 3;
+class SavingsAccount extends BankAccount implements InterestBearing {
+  final double _minimumBalance = 500.0;
+  final double _interestRate = 0.02;
+  final int _withdrawalLimit = 3;
   int _withdrawalsThisMonth = 0;
 
   SavingsAccount(super._accountNumber, super._accountHolderName, super._balance);
@@ -84,15 +88,16 @@ class SavingsAccount extends BankAccount {
     print('Deposited \\$amount. New balance: \\$_balance');
   }
 
+  @override
   void calculateInterest() {
     double interest = _balance * _interestRate;
     _balance += interest;
     print('Interest of \\$interest added. New balance: \\$_balance');
   }
-} 
+}
 
 class CheckingAccount extends BankAccount {
-final double _overdraftFee = 35.0;
+  final double _overdraftFee = 35.0;
 
   CheckingAccount(super._accountNumber, super._accountHolderName, super._balance);
 
@@ -113,7 +118,7 @@ final double _overdraftFee = 35.0;
   }
 }
 
-class PremiumAccount extends BankAccount {
+class PremiumAccount extends BankAccount implements InterestBearing {
   final double _minimumBalance = 10000.0;
   final double _interestRate = 0.05;
 
@@ -135,6 +140,7 @@ class PremiumAccount extends BankAccount {
     print('Deposited \\$amount. New balance: \\$_balance');
   }
 
+  @override
   void calculateInterest() {
     double interest = _balance * _interestRate;
     _balance += interest;
@@ -171,8 +177,8 @@ class Bank {
   void generateReport() {
     print('Bank Accounts Report:');
     _accounts.forEach((accountNumber, account) {
+      print("--------------------------");
       account.displayAccountInfo(accountNumber);
-     
     });
   }
 }
